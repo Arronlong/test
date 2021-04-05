@@ -24,7 +24,6 @@ jobs:
         curl 'https://'$CFBLOG_HOST'/admin/search.xml' -H 'cfblog_token: '$CFBLOG_TOKEN'' >search.xml
 
     - name: change to branch
-      env:
       run: |
         git checkout -b search
         git checkout search
