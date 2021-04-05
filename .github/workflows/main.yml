@@ -27,6 +27,7 @@ jobs:
       run: |
         git checkout -b search
         git checkout search
+        git pull
         
     - name: commit change
       run: |
