@@ -21,16 +21,20 @@ jobs:
         CFBLOG_TOKEN: ${{ secrets.CFBLOG_TOKEN }}
         CFBLOG_HOST: ${{ secrets.CFBLOG_HOST }}
       run: |
+        curl 'https://'$CFBLOG_HOST'/admin/search.xml' -H 'cfblog_token: '$CFBLOG_TOKEN'' >search.xml
+
+    - name: change to Search branch
+      run: |
         git checkout -b search
         git checkout search
-        curl 'https://'$CFBLOG_TOKEN'/admin/search.xml' -H 'cfblog_token: '$CFBLOG_TOKEN'' >search.xml
-
+        
     - name: commit change
       run: |
         git config --global user.email "action@github.com"
         git config --global user.name "action"
         git add .
         git commit -m "Update from Github Action_"`date +%Y-%m-%d`
+        
     - name: push change
       env:
         GITHUB_LOGIN: ${{ github.repository_owner }}
@@ -38,6 +42,7 @@ jobs:
         GITHUB_REPOSITORY: ${{ github.repository }}
       run: |
         git push https://$GITHUB_LOGIN:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
+        
     - name: done
       run: echo 'done'
       
