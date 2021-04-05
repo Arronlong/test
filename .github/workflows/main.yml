@@ -23,11 +23,11 @@ jobs:
       run: |
         curl 'https://'$CFBLOG_HOST'/admin/search.xml' -H 'cfblog_token: '$CFBLOG_TOKEN'' >search.xml
 
-    - name: change to Search branch
+    - name: change to branch
+      env:
       run: |
         git checkout -b search
         git checkout search
-        git pull
         
     - name: commit change
       run: |
@@ -42,7 +42,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
         GITHUB_REPOSITORY: ${{ github.repository }}
       run: |
-        git push https://$GITHUB_LOGIN:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
+        git push -f https://$GITHUB_LOGIN:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
         
     - name: done
       run: echo 'done'
