@@ -19,17 +19,18 @@ jobs:
     - name: Get Search.xml
       env:
         CFBLOG_TOKEN: ${{ secrets.CFBLOG_TOKEN }}
+        CFBLOG_HOST: ${{ secrets.CFBLOG_HOST }}
       run: |
         git checkout -b search
         git checkout search
-        curl 'https://blog.arrontg.cf/admin/search.xml' -H 'cfblog_token: '$CFBLOG_TOKEN'' >search.xml
+        curl 'https://'$CFBLOG_TOKEN'/admin/search.xml' -H 'cfblog_token: '$CFBLOG_TOKEN'' >search.xml
 
     - name: commit change
       run: |
         git config --global user.email "action@github.com"
         git config --global user.name "action"
         git add .
-        git commit -m "Update from Github Action"`date +%Y-%m-%d`
+        git commit -m "Update from Github Action_"`date +%Y-%m-%d`
     - name: push change
       env:
         GITHUB_LOGIN: ${{ github.repository_owner }}
